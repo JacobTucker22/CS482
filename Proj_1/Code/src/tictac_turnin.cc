@@ -208,6 +208,8 @@ int miniMaxMove(int board[][3], bool isMaximizer, int player, int &totalScore, i
     }
 }
 
+//make move takes the board state, determines whose turn it is and makes use of minimax to make the move
+//returns 1 if succesful move made, 0 if no moves were able to be made
 int make_move(int board[][3]) {
 
     move nextMove;
@@ -245,7 +247,7 @@ int make_move(int board[][3]) {
 
     //If there is an immediate winning move, make that move and return 1
     if (makeWinningMove(state, board)) {
-        printf("%d Wins!\n", state);
+        printf("Player %d Wins!\n", state);
         return 1;
     }
 
@@ -265,8 +267,7 @@ int make_move(int board[][3]) {
                 board[i][j] = state;
                 //get minimax value for that move
                 int tempMove = 0;
-                int testMove = 0;
-                tempMove = miniMaxMove(board, false, state, testMove, 0);
+                tempMove = miniMaxMove(board, false, state, tempMove, 0);
                 tempBoard[i][j] = tempMove;
                 //reset the move
                 board[i][j] = 0;
@@ -281,6 +282,7 @@ int make_move(int board[][3]) {
         }
     }
 
+    //Make the move
     board[nextMove.row][nextMove.col] = state;
 
     //Shows the minimax values calculated for each position
@@ -301,15 +303,17 @@ int make_move(int board[][3]) {
     }
     printf("\n");
 
-
+    //print the move that was made
     printf("player [%d] made move: [%d,%d]\n", state, nextMove.row, nextMove.col);
 
-    checkWin(state, board);
+    //Checks for win condition after move is made
+    if(checkWin(state, board) == 10 * state){
+        printf("Player %d Wins!", state);
+    }
+    else if(!movesLeft(board)) {
+        printf("No moves left\nDraw!");
+    }
 
     return 1;
-
-
-    // no move was made (board was full)
-    return 0;
 }
 
