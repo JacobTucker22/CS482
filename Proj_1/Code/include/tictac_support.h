@@ -3,6 +3,12 @@
 
 #include <string>
 
+//Simple struct for holsing two ints representing the next move
+//Used in the make_move function
+struct move {
+    int row, col;
+};
+
 /**
 	load_board: loads a tic-tac-toe board state from a file
 
@@ -19,7 +25,7 @@
 
 **/
 
-int load_board( std::string filename, int board[][3] );
+int load_board(std::string filename, int board[][3]);
 
 
 /**
@@ -38,7 +44,7 @@ int load_board( std::string filename, int board[][3] );
 
 **/
 
-int save_board( std::string filename, int board[][3] );
+int save_board(std::string filename, int board[][3]);
 
 
 /**
@@ -58,6 +64,6 @@ int save_board( std::string filename, int board[][3] );
 		(returns 1 by default, 0 if no move made)
 **/
 
-int make_move( int board[][3] );
+int make_move(int board[][3]);
 
 #endif
