@@ -1,8 +1,0 @@
-//
-// Created by jtucker on 11/3/21.
-//
-
-#ifndef JACOB_TUCKER_PROJ_2_TRAINING_H
-#define JACOB_TUCKER_PROJ_2_TRAINING_H
-
-#endif //JACOB_TUCKER_PROJ_2_TRAINING_H
