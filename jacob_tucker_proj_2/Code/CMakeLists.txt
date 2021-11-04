@@ -1,8 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
-project (tictactoe)
+project (proj2)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-add_executable(tictactoe src/tictac.cc src/tictac_support.cc src/tictac_turnin.cc)
-
-#add_executable(grader src/tictac_grader.cc src/tictac_support.cc src/tictac_answer.cc)
+add_executable(training src/training.cc)
+add_executable(classify src/classify.cc)
