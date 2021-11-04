@@ -15,6 +15,7 @@
 #include <string>
 #include <cstring>
 #include <unordered_map>
+#include <fstream>
 
 
 int main(int argc, char *argv[]) {
@@ -40,6 +41,31 @@ int main(int argc, char *argv[]) {
             outputHamPath = prePath + argv[i + 1];
         }
     }
+
+    //Two unordered maps to store strings as keys and ints values representing frequency of word found
+    std::unordered_map<std::string, int> hamMap;
+    std::unordered_map<std::string, int> spamMap;
+
+    //Open input file for parsing
+    std::ifstream iFile(inputFilePath);
+    if(!iFile.is_open()) {
+        std::cout << "Error opening file\n";
+    }
+    std::string line;
+
+    //Get each line, separate line into substrings by ','.
+    //If first value is ham/Spam, use correct umap
+    //Check each word in second value.
+    //If word already in umap, increment value
+    //Else add word to umap with initial value = 1
+    while(getline(iFile, line)) {
+
+    }
+
+    //Close input file
+    iFile.close();
+
+
 
     return 0;
 
