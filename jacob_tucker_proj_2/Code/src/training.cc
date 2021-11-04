@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
     if(argc != 7) {
         cout << "Correct Usage: ./training -i <input file.csv> -os <spam output file.csv> -oh <ham output file.csv>\n"
                 "Order of arguments does not matter as long as correct flags are in front of file paths\n";
+        return 1;
     }
 
     //read write file paths
@@ -66,7 +67,8 @@ int main(int argc, char *argv[]) {
     //Open input file for parsing
     ifstream iFile(inputFilePath);
     if(!iFile.is_open()) {
-        cout << "Error opening file\n";
+        cout << "Error opening input file\n";
+        return 1;
     }
     string line;
 
@@ -125,16 +127,37 @@ int main(int argc, char *argv[]) {
                 uMapPtr->insert(make_pair(word, 1));
             }
         }
-
-
-
-
-
     }
-
-    //Close input file
+    //Close input file. Done reading from file
     iFile.close();
 
+    //Open Ham file and write values
+    ofstream outHamFile(outputHamPath);
+    if(!outHamFile.is_open()) {
+        cout << "Error opening output ham file\n";
+        return 1;
+    }
+    outHamFile << totalHamWords << "\n";
+
+    for(const auto it : hamMap) {
+        outHamFile << it.first << ','
+                   << it.second << "\n";
+    }
+    outHamFile.close();
+
+    //Open Spam file and write values
+    ofstream outSpamFile(outputSpamPath);
+    if(!outSpamFile.is_open()) {
+        cout << "Error opening output spam file\n";
+        return 1;
+    }
+    outHamFile << totalSpamWords << "\n";
+
+    for(const auto it : spamMap) {
+        outSpamFile << it.first << ','
+                   << it.second << "\n";
+    }
+    outSpamFile.close();
 
     return 0;
 
