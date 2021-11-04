@@ -26,6 +26,8 @@ int main(int argc, char *argv[]) {
     const std::string prePath = "../";
 
     //Store each argument after flag in appropriate string.
+    //Assumes working directory is build folder
+    //Read and writes to parent directory
     for(int i = 0; i < argc; i++) {
         std::string temp = argv[i];
         if(strcmp( argv[i], "-i") == 0) {
