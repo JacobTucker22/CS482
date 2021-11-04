@@ -16,21 +16,31 @@
 #include <cstring>
 #include <unordered_map>
 #include <fstream>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
 
 
 int main(int argc, char *argv[]) {
 
-    std::string inputFilePath;
-    std::string outputSpamPath;
-    std::string outputHamPath;
+    //read write file paths
+    string inputFilePath;
+    string outputSpamPath;
+    string outputHamPath;
 
-    const std::string prePath = "../";
+    //Count of total number of words in each class
+    int totalHamWords = 0;
+    int totalSpamWords = 0;
+
+    //prepended to file paths so it writes in main folder instead of build
+    const string prePath = "../";
 
     //Store each argument after flag in appropriate string.
     //Assumes working directory is build folder
     //Read and writes to parent directory
     for(int i = 0; i < argc; i++) {
-        std::string temp = argv[i];
+        string temp = argv[i];
         if(strcmp( argv[i], "-i") == 0) {
             inputFilePath = prePath + argv[i + 1];
         }
@@ -43,15 +53,18 @@ int main(int argc, char *argv[]) {
     }
 
     //Two unordered maps to store strings as keys and ints values representing frequency of word found
-    std::unordered_map<std::string, int> hamMap;
-    std::unordered_map<std::string, int> spamMap;
+    unordered_map<string, int> hamMap;
+    unordered_map<string, int> spamMap;
 
     //Open input file for parsing
-    std::ifstream iFile(inputFilePath);
+    ifstream iFile(inputFilePath);
     if(!iFile.is_open()) {
-        std::cout << "Error opening file\n";
+        cout << "Error opening file\n";
     }
-    std::string line;
+    string line;
+
+    //Ignore the top columns
+    getline(iFile, line);
 
     //Get each line, separate line into substrings by ','.
     //If first value is ham/Spam, use correct umap
@@ -59,6 +72,23 @@ int main(int argc, char *argv[]) {
     //If word already in umap, increment value
     //Else add word to umap with initial value = 1
     while(getline(iFile, line)) {
+        stringstream ssLine(line);
+        //Holds value for type classification
+        string type;
+        //holds the string of word data
+        string data;
+
+        //Get type from first column
+        getline(ssLine, type, ',');
+
+        //Get data from second column
+        getline(ssLine, data);
+
+        //clean data. Remove punctuation and make lower case
+        data.erase(remove_if(data.begin(), data.end(), ::ispunct), data.end());
+        transform(data.begin(), data.end(), data.begin(), ::tolower);
+
+
 
     }
 
