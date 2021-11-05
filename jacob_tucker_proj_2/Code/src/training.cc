@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
         cout << "Error opening output spam file\n";
         return 1;
     }
-    outHamFile << totalSpamWords << "\n";
+    outSpamFile << totalSpamWords << "\n";
 
     for(const auto it : spamMap) {
         outSpamFile << it.first << ','

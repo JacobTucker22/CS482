@@ -48,6 +48,15 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    //Read in each file. Save number of ham words and spam words
+    //Save word and frequencies in umaps
+    //Add word counts to get total word count
+    //Calculate probabilty of class by class word count / total word count
+    //COnditional probability of each word = (freq of word in class + 1)/ (total words in class + Number of unique words among both classes)
+    //unique words should be equal to number of lines in count file - 1
+    //Probability of class = probability of class * each conditional probability of each word in message
+    //Calulate probability of class for each class, compare and choose the higher probability
+
 
     return 0;
 
