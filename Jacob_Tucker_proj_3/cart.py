@@ -98,14 +98,14 @@ if __name__ == '__main__':
     # learning rate (alpha) and the discount factor (gamma)
     ############################################################################
 
-    alpha = 0.5  #This needs to be changed
-    gamma = 0.7  #This needs to be changed
+    alpha = 0.6  #This needs to be changed
+    gamma = 0.95  #This needs to be changed
     # epsion-greedy params
     eps_start = 0.9
     eps_end = 0.05
     eps_decay = 100000
     if train:
-        n_episodes = 50001
+        n_episodes = 5001
         time = 1 
         for episode in range(n_episodes):
             tick = 0
@@ -186,3 +186,10 @@ if __name__ == '__main__':
             time.sleep(0.05)
 
             s = sprime
+            
+        if tick < 199:
+            print ("fail " + str(tick) )
+
+        else:
+            print ("success")
+            
