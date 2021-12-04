@@ -10,12 +10,12 @@ import gym
 from gym import wrappers, logger
 
 
-# state =  [pos(x), vel(xdot),  angle(theta),    ,angular vel(theta_dot) ] 
-MIN_VALS = [-2.5,  -0.5,        np.radians(-12), np.radians(-50)]
-MAX_VALS = [ 2.5,   0.5,        np.radians(12),  np.radians(50)]
-NUM_BINS = [9,      9,          9,               9] 
+# state =  [pos(x), vel(xdot)]
+MIN_VALS = [0.0,     0.0]  # This needs to be changed
+MAX_VALS = [0.0,     0.0]  # This needs to be changed
+NUM_BINS = [0,     0]  # This needs to be changed
 bins = np.array([np.linspace(MIN_VALS[i], MAX_VALS[i], NUM_BINS[i])\
-                 for i in range(4)])
+                 for i in range(len(MAX_VALS))])
 
 ################################################################################
 # CS482: this is the function that changes the continuous values of the state of
@@ -24,9 +24,9 @@ bins = np.array([np.linspace(MIN_VALS[i], MAX_VALS[i], NUM_BINS[i])\
 ################################################################################
 def discretize_state(states):
     global bins
-    discretized_states = 0 
+    discretized_states = 0
     for i,state in enumerate(states):
-        discretized_states += (10**i)*np.digitize(state,bins[i])
+        discretized_states += ((NUM_BINS[i]+1)**i)*np.digitize(state,bins[i])
     return discretized_states
 
 
@@ -34,12 +34,8 @@ def discretize_state(states):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=None)
 
-    ############################################################################
-    # CS482: --env_id is the variable you'd need to change at command line to 
-    # swithch to mountain car task
-    ############################################################################
     parser.add_argument('--env_id',dest='env_id', nargs='?',
-                default='CartPole-v0', help='Select the environment to run')
+                default='MountainCar-v0', help='Select the environment to run')
     parser.add_argument('--train',dest='train', action='store_true',
                 help=' boolean flag to start training (if this flag is set)')
     parser.add_argument('--test',dest='test', action='store_true',
@@ -77,7 +73,7 @@ if __name__ == '__main__':
     outdir = '/tmp/' + 'qagent' + '-results'
     # Comment out the following line to disable rendering of visual which
     # speeds up the training
-    # env = wrappers.Monitor(env, outdir, write_upon_reset=True, force=True)
+    env = wrappers.Monitor(env, outdir, write_upon_reset=True, force=True)
 
     env.seed(0)
 
@@ -88,7 +84,7 @@ if __name__ == '__main__':
 
     if train:
         # initialize Q table with zeros
-        Q = np.zeros([9999, env.action_space.n])
+        Q = np.zeros([9999, env.action_space.n]) #The number 9999 needs to be changed every time you chan change NUM_BINS
     if test:
         # load the saved model(learned Q table)
         Q = np.load(args.model)
@@ -98,14 +94,14 @@ if __name__ == '__main__':
     # learning rate (alpha) and the discount factor (gamma)
     ############################################################################
 
-    alpha = 0.05  #This needs to be changed
-    gamma = 0.99  #This needs to be changed
+    alpha = 0.3  # This needs to be changed ( same as problem 1)
+    gamma = 0.7  # This needs to be changed ( same as problem 1)
     # epsion-greedy params
     eps_start = 0.9
     eps_end = 0.05
     eps_decay = 100000
     if train:
-        n_episodes = 50001
+        n_episodes = 50001     # This might need to be changed
         time = 1 
         for episode in range(n_episodes):
             tick = 0
@@ -139,26 +135,21 @@ if __name__ == '__main__':
                 ################################################################
                 # CS482: Implement the update rule for Q learning here
                 ################################################################
-                Q[s,action] +=  alpha * (reward + (gamma * predicted_value) - Q[s, action] ) #This needs to be changed
+                
+                Q[s,action] += 0 # This needs to be changed similar to problem 1
 
                 s = sprime
 
             if episode % 1000 == 0:
                 alpha *= .996
 
-            ####################################################################
-            # CS482: When switching to the mountain car task, you will have to 
-            # change this to reflect the success/failure of the mountain car 
-            # task
-            ####################################################################
-        
-            if tick < 199:
-                print ("fail " + str(tick) )
+           
+            if state[0] < 0.5:
+                print ("fail ")
             else:
                 print ("success")
-
-        np.save('cartpole.npy',Q)
-
+        np.save('car.npy',Q)
+        
     if test:
         import time
         ########################################################################
@@ -183,13 +174,6 @@ if __name__ == '__main__':
             sprime = discretize_state(state)
             # render the graphics
             env.render()
-            time.sleep(0.05)
+            time.sleep(0.01)
 
             s = sprime
-            
-        if tick < 199:
-            print ("fail " + str(tick) )
-
-        else:
-            print ("success")
-            

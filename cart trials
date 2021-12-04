@@ -1,0 +1,35 @@
+a 0.9 g 0.8 fail
+a 0.9 g 0.9 fail
+a 0.85 g 0.8 fail
+a 0.5 g 0.97 success (barely)
+a 0.4 g 0.97 success (barely)
+a 0.9 g 0.85 fail
+a 0.4 g 0.7 fail
+a 0.3 g 0.3 fail
+
+a 0.3 g 0.9 success
+a 0.4 g 0.6 success
+
+a 0.5 g 0.7 success success fail
+a 0.5 g 0.6 success (kinda drifts)
+a 0.4 g 0.5 success
+a 0.3 g 0.4 fail
+
+
+a 0.5 g 0.5 success 
+a 0.4 g 0.8 success 
+a 0.3 g 0.7 success
+
+a 0.3 g 0.5 success success fail success
+a 0.2 g 0.9 success
+a 0.3 g 0.9 success
+
+a 0.1 g 0.9 success success success success success success
+a 0.1 g 0.95 fail success
+
+a 0.05 g 0.95 success success
+a 0.05 g 0.85 success fail
+a 0.1 g 0.85 success (wobbly)
+a 0.05 g 0.9 success fail success
+
+a 0.05 g 0.99 success success success success success success success success Winner!
