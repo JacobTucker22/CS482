@@ -1,3 +1,10 @@
+#Jacob Tucker (modifying given code)
+#12/5/2021
+#CS482 AI
+#Project3 - Reinforcement learning
+#Cartpole
+
+
 #!/usr/bin/python3
 import argparse
 import logging
@@ -98,8 +105,8 @@ if __name__ == '__main__':
     # learning rate (alpha) and the discount factor (gamma)
     ############################################################################
 
-    alpha = 0.05  #This needs to be changed
-    gamma = 0.99  #This needs to be changed
+    alpha = 0.05  #very low learning rate
+    gamma = 0.99  #relatively high discount rate means that future rewards are valued almost the same as immediate rewards
     # epsion-greedy params
     eps_start = 0.9
     eps_end = 0.05
@@ -139,7 +146,7 @@ if __name__ == '__main__':
                 ################################################################
                 # CS482: Implement the update rule for Q learning here
                 ################################################################
-                Q[s,action] +=  alpha * (reward + (gamma * predicted_value) - Q[s, action] ) #This needs to be changed
+                Q[s,action] +=  alpha * (reward + (gamma * predicted_value) - Q[s, action] ) 
 
                 s = sprime
 
@@ -187,6 +194,7 @@ if __name__ == '__main__':
 
             s = sprime
             
+        #show success or fail on completion of test
         if tick < 199:
             print ("fail " + str(tick) )
 

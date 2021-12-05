@@ -1,3 +1,10 @@
+#Jacob Tucker (modifying given code)
+#12/5/2021
+#CS482 AI
+#Project3 - Reinforcement learning
+#Car
+
+
 #!/usr/bin/python3
 import argparse
 import logging
@@ -11,9 +18,9 @@ from gym import wrappers, logger
 
 
 # state =  [pos(x), vel(xdot)]
-MIN_VALS = [-1.2,     -0.07]  # This needs to be changed
-MAX_VALS = [0.6,     0.07]  # This needs to be changed
-NUM_BINS = [99,     99]  # This needs to be changed
+MIN_VALS = [-1.2,     -0.07]  
+MAX_VALS = [0.6,     0.07]  
+NUM_BINS = [99,     99]  
 bins = np.array([np.linspace(MIN_VALS[i], MAX_VALS[i], NUM_BINS[i])\
                  for i in range(len(MAX_VALS))])
 
@@ -84,7 +91,7 @@ if __name__ == '__main__':
 
     if train:
         # initialize Q table with zeros
-        Q = np.zeros([9999, env.action_space.n]) #The number 9999 needs to be changed every time you chan change NUM_BINS
+        Q = np.zeros([9999, env.action_space.n]) 
     if test:
         # load the saved model(learned Q table)
         Q = np.load(args.model)
@@ -94,14 +101,14 @@ if __name__ == '__main__':
     # learning rate (alpha) and the discount factor (gamma)
     ############################################################################
 
-    alpha = 0.7  # This needs to be changed ( same as problem 1)
-    gamma = 0.95  # This needs to be changed ( same as problem 1)
+    alpha = 0.7  #High learning rate.
+    gamma = 0.95  #discount factor
     # epsion-greedy params
     eps_start = 0.9
     eps_end = 0.05
     eps_decay = 100000
     if train:
-        n_episodes = 50001     # This might need to be changed
+        n_episodes = 50001
         time = 1 
         for episode in range(n_episodes):
             tick = 0
@@ -178,6 +185,7 @@ if __name__ == '__main__':
 
             s = sprime
             
+        #show success or fail on completion of test
         if state[0] < 0.5:
             print ("fail ")
         else:
