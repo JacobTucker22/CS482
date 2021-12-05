@@ -11,9 +11,9 @@ from gym import wrappers, logger
 
 
 # state =  [pos(x), vel(xdot)]
-MIN_VALS = [0.0,     0.0]  # This needs to be changed
-MAX_VALS = [0.0,     0.0]  # This needs to be changed
-NUM_BINS = [0,     0]  # This needs to be changed
+MIN_VALS = [-1.2,     -0.07]  # This needs to be changed
+MAX_VALS = [0.6,     0.07]  # This needs to be changed
+NUM_BINS = [9,     9]  # This needs to be changed
 bins = np.array([np.linspace(MIN_VALS[i], MAX_VALS[i], NUM_BINS[i])\
                  for i in range(len(MAX_VALS))])
 
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     outdir = '/tmp/' + 'qagent' + '-results'
     # Comment out the following line to disable rendering of visual which
     # speeds up the training
-    env = wrappers.Monitor(env, outdir, write_upon_reset=True, force=True)
+    # env = wrappers.Monitor(env, outdir, write_upon_reset=True, force=True)
 
     env.seed(0)
 
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     if train:
         # initialize Q table with zeros
-        Q = np.zeros([9999, env.action_space.n]) #The number 9999 needs to be changed every time you chan change NUM_BINS
+        Q = np.zeros([99, env.action_space.n]) #The number 9999 needs to be changed every time you chan change NUM_BINS
     if test:
         # load the saved model(learned Q table)
         Q = np.load(args.model)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     ############################################################################
 
     alpha = 0.3  # This needs to be changed ( same as problem 1)
-    gamma = 0.7  # This needs to be changed ( same as problem 1)
+    gamma = 0.9  # This needs to be changed ( same as problem 1)
     # epsion-greedy params
     eps_start = 0.9
     eps_end = 0.05
@@ -136,7 +136,7 @@ if __name__ == '__main__':
                 # CS482: Implement the update rule for Q learning here
                 ################################################################
                 
-                Q[s,action] += 0 # This needs to be changed similar to problem 1
+                Q[s,action] +=  alpha * (reward + (gamma * predicted_value) - Q[s, action] )
 
                 s = sprime
 
@@ -177,3 +177,8 @@ if __name__ == '__main__':
             time.sleep(0.01)
 
             s = sprime
+            
+        if state[0] < 0.5:
+            print ("fail ")
+        else:
+            print ("success")
