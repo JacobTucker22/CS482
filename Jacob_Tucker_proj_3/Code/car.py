@@ -13,7 +13,7 @@ from gym import wrappers, logger
 # state =  [pos(x), vel(xdot)]
 MIN_VALS = [-1.2,     -0.07]  # This needs to be changed
 MAX_VALS = [0.6,     0.07]  # This needs to be changed
-NUM_BINS = [9,     9]  # This needs to be changed
+NUM_BINS = [99,     99]  # This needs to be changed
 bins = np.array([np.linspace(MIN_VALS[i], MAX_VALS[i], NUM_BINS[i])\
                  for i in range(len(MAX_VALS))])
 
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     if train:
         # initialize Q table with zeros
-        Q = np.zeros([99, env.action_space.n]) #The number 9999 needs to be changed every time you chan change NUM_BINS
+        Q = np.zeros([9999, env.action_space.n]) #The number 9999 needs to be changed every time you chan change NUM_BINS
     if test:
         # load the saved model(learned Q table)
         Q = np.load(args.model)
@@ -94,8 +94,8 @@ if __name__ == '__main__':
     # learning rate (alpha) and the discount factor (gamma)
     ############################################################################
 
-    alpha = 0.3  # This needs to be changed ( same as problem 1)
-    gamma = 0.9  # This needs to be changed ( same as problem 1)
+    alpha = 0.7  # This needs to be changed ( same as problem 1)
+    gamma = 0.95  # This needs to be changed ( same as problem 1)
     # epsion-greedy params
     eps_start = 0.9
     eps_end = 0.05
